@@ -1,4 +1,8 @@
 <template>
+<div class="mt-3">
+  <div class="text-secondary text-center">
+    ¡Hola <span class="font-weight-bold text-ingo">{{user}}</span>!
+  </div>
   <div class="container text-center animated slideInUp">
     <div class="row justify-content-center">
       <div class="col-10 col-md-10 col-lg-8 col-xl-7">
@@ -7,7 +11,6 @@
           Tuto es una aplicación web de tutoreo entre alumnos y profesores. Podrás aprender algo nuevo o reforzar
           los conceptos que ya has visto anteriormente en tus materias favoritas. ¡Pulsa el botón de registrar para 
           comenzar a aprender!
-          <font-awesome-icon icon="star"></font-awesome-icon>
         </p>
 
         <router-link
@@ -25,15 +28,13 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
-import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 export default {
   name: "Home",
-  components: {
-    FontAwesomeIcon
-  }
+  props: ["user"]
 };
 </script>
 

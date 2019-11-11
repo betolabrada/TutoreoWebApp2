@@ -1,14 +1,33 @@
 <template>
   <div id="app">
     <Nav />
-    <router-view />
+    <router-view :user="user" />
   </div>
 </template>
 
 <script>
 import Nav from "./components/Nav";
+import Firebase from "firebase";
 export default {
   name: "app",
+  data: function() {
+    return {
+      user: null
+    }
+  },
+  mounted() {
+    Firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.user = user.email;
+      }
+    });
+    // db.collection("usuarios")
+    // .doc("GNX1CwR02ZXwb6pxbxIV")
+    // .get()
+    // .then(snapshot => {
+    //   this.user = snapshot.data().name;
+    // });
+  },
   components: {
     Nav
   }
