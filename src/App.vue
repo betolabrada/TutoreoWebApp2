@@ -21,12 +21,6 @@ export default {
         this.user = user.email;
       }
     });
-    // db.collection("usuarios")
-    // .doc("GNX1CwR02ZXwb6pxbxIV")
-    // .get()
-    // .then(snapshot => {
-    //   this.user = snapshot.data().name;
-    // });
   },
   components: {
     Nav
