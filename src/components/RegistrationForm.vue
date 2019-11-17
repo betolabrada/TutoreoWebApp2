@@ -71,7 +71,6 @@ export default {
             const userData = {
               nombre: this.nombre,
               correo: this.correo,
-              contra: this.contra
             };
             if (!this.maestroActivo) {
               db.collection("alumnos")
