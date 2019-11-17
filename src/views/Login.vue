@@ -17,7 +17,7 @@
                     </div>
                     <label
                       class="form-control-label sr-only"
-                      for="Email"
+                      for="email"
                     >Correo Electrónico</label>
                     <input
                       required
