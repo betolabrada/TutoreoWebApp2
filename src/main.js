@@ -15,7 +15,9 @@ import {
   faRandom,
   faUndo,
   faStar,
-  faEnvelope 
+  faEnvelope,
+  faCalendar,
+  faGraduationCap
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faEdit,
@@ -25,7 +27,9 @@ library.add(faEdit,
   faRandom,
   faUndo,
   faStar,
-  faEnvelope 
+  faEnvelope,
+  faCalendar,
+  faGraduationCap
 );
 
 Vue.config.productionTip = false;

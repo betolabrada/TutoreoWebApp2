@@ -2,66 +2,42 @@
   <div class="card-body">
     <h3 class="mb-4">Registro</h3>
     <form>
-      <section class="form-group">
-        <label class="form-control-label sr-only" for="nombre"></label>
-        <input
-          required
-          class="form-control"
-          type="text"
-          id="nombre"
-          placeholder="Nombre(s)"
-          v-model="nombre"
-        />
-      </section>
-      <section class="form-group">
-        <input
-          required
-          class="form-control"
-          type="email"
-          id="correo"
-          placeholder="Correo Electrónico"
-          v-model="correo"
-        />
-      </section>
-      <section class="form-group">
-        <input
-          required
-          class="form-control"
-          type="password"
-          id="contrasenia"
-          placeholder="Contraseña"
-          v-model="contra"
-        />
-      </section>
-      <div class="custom-control custom-switch">
-        <input
-          v-model="maestroActivo"
-          type="checkbox"
-          class="custom-control-input"
-          id="togglerMaestro"
-        />
-        <label class="custom-control-label" for="togglerMaestro">Soy maestro</label>
-      </div>
+      <simple-input type="text" id="nombre" placeholder="Nombre completo" v-model="nombre" />
+      <simple-input type="email" id="correo" placeholder="Correo electrónico" v-model="correo" />
+      <simple-input type="password" id="contra" placeholder="Contraseña" v-model="contra" />
+      <simple-switch idSwitch="maestro" labelTxt="Soy maestro" v-model="maestro" />
       <div class="form-group text-center mb-0">
-        <button v-on:click="register" class="btn btn-primary" type="submit">Registrarse</button>
+        <button v-on:click="print" class="btn btn-primary" type="submit">
+          Registrarse
+        </button>
       </div>
     </form>
   </div>
 </template>
+
 <script>
 import Firebase from "firebase";
+import SimpleInput from "@/components/SimpleInput.vue";
+import SimpleSwitch from "@/components/SimpleSwitch.vue";
 import db from "../db";
 export default {
   name: "Register",
+  components: {
+    SimpleInput,
+    SimpleSwitch
+  },
   data: function() {
     return {
       nombre: "",
       correo: "",
       contra: "",
-      maestroActivo: false
+      maestro: false
     };
   },
   methods: {
+    print: function() {
+      alert(this.correo);
+    },
     register: function(e) {
       Firebase.auth()
         .createUserWithEmailAndPassword(this.correo, this.contra)
@@ -70,9 +46,9 @@ export default {
             alert(`Cuenta creada para ${user.user.email}`);
             const userData = {
               nombre: this.nombre,
-              correo: this.correo,
+              correo: this.correo
             };
-            if (!this.maestroActivo) {
+            if (!this.maestro) {
               db.collection("alumnos")
                 .doc(user.user.uid)
                 .set(userData);
