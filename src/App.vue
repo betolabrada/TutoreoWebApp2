@@ -1,21 +1,36 @@
 <template>
   <div id="app">
-    <Nav />
+    <Nav :key="$route.fullPath" />
     <router-view />
   </div>
 </template>
 
 <script>
+import firebase from "firebase";
 import Nav from "./components/Nav";
 export default {
   name: "app",
-  // mounted() {
-  //   Firebase.auth().onAuthStateChanged(user => {
-  //     if (user) {
-  //       this.user = user.email;
-  //     }
-  //   });
-  // },
+  data: function() {
+    return {
+      user: {},
+      userIsLoggedIn: false,
+      email: "",
+    }
+  },
+  mounted() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.user = user;
+        this.userIsLoggedIn = true;
+        this.email = user.email;
+      }
+      else {
+        this.user = {};
+        this.userIsLoggedIn = false;
+        this.email = "";
+      }
+    });
+  },
   components: {
     Nav
   }

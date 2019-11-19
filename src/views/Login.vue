@@ -79,7 +79,7 @@ export default {
       .signInWithEmailAndPassword(info.email, info.password)
       .then(
         () => {
-          this.$router.push("materias")
+          this.$router.push("/dashboard")
         }, error => {
           this.error = error.message;
         }

@@ -19,20 +19,17 @@ export default {
     return {
       user: {
         id: "",
-        name: ""
+        name: "",
+        email: ""
       },
       error: ""
     };
   },
   mounted() {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.user.id = user.uid;
-        this.user.name = user.displayName ? user.displayName : user.email;
-      } else {
-        this.error = "Usuario no encontrado, ir a inicio";
-      }
-    });
+    this.user.id = firebase.auth().currentUser.uid;
+    this.user.name = firebase.auth().currentUser.displayName
+      ? firebase.auth().currentUser.displayName
+      : firebase.auth().currentUser.email;
   }
 };
 </script>

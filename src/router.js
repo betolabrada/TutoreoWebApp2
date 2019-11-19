@@ -5,7 +5,7 @@ import Login from "./views/Login.vue";
 import SignUp from "./views/SignUp.vue";
 import About from "./views/About.vue";
 import Materias from "./views/Materias.vue";
-import sDashboard from "./views/student/Dashboard.vue";
+import Dashboard from "./views/student/Dashboard.vue";
 import TeacherRegister from "./views/teacher/TeacherRegister.vue";
 import StudentRegister from "./views/student/StudentRegister.vue";
 
@@ -39,9 +39,9 @@ export default new VueRouter({
       component: Materias
     },
     {
-      path: "/student/dashboard",
-      name: "StudentDashboard",
-      component: sDashboard,
+      path: "/dashboard",
+      name: "Dashboard",
+      component: Dashboard,
     },
     {
       path: "/teacher/register",
