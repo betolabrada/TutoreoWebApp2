@@ -1,18 +1,30 @@
 <template>
   <div class="container">
-    <div class="col-12 alert alert-danger px-3" v-if="error">
-      {{ error }}
+    <div class="col-12 alert alert-danger px-3" v-if="error">{{ error }}</div>
+    <div v-if="user.name">
+      <div class="text-secondary text-center">
+        ¡Hola
+        <span class="font-weight-bold text-ingo">{{ user.name }}</span>!
+      </div>
+      <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action active text-center">Tus materias</a>
+        <li
+          :key="materia.id_curso"
+          v-for="materia in materias"
+          class="list-group-item list-group-item-action"
+        >
+          <router-link
+            :to="{ name: 'DetalleMateria', params: {id_curso: materia.id_curso} } "
+          >{{materia.nombre}}</router-link>
+        </li>
+      </div>
     </div>
-    <div class="text-secondary text-center">
-      ¡Hola <span class="font-weight-bold text-ingo">{{ user.name }}</span
-      >!
-    </div>
-    <table></table>
   </div>
 </template>
 
 <script>
 import firebase from "firebase";
+import db from "@/db.js";
 export default {
   name: "Dashboard",
   data: function() {
@@ -22,14 +34,34 @@ export default {
         name: "",
         email: ""
       },
-      error: ""
+      error: "",
+      materias: []
     };
   },
   mounted() {
-    this.user.id = firebase.auth().currentUser.uid;
-    this.user.name = firebase.auth().currentUser.displayName
-      ? firebase.auth().currentUser.displayName
-      : firebase.auth().currentUser.email;
+    if (firebase.auth().currentUser) {
+      this.user.id = firebase.auth().currentUser.uid;
+      this.user.name = firebase.auth().currentUser.displayName
+        ? firebase.auth().currentUser.displayName
+        : firebase.auth().currentUser.email;
+      this.error = "";
+    } else {
+      this.error = "Inicia Sesión para ver esta página";
+      this.user = {};
+    }
+  },
+
+  created() {
+    db.collection("cursos")
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          this.materias.push({
+            id_curso: doc.id,
+            nombre: doc.data().nombre
+          });
+        });
+      });
   }
 };
 </script>

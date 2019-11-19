@@ -8,6 +8,7 @@ import Materias from "./views/Materias.vue";
 import Dashboard from "./views/student/Dashboard.vue";
 import TeacherRegister from "./views/teacher/TeacherRegister.vue";
 import StudentRegister from "./views/student/StudentRegister.vue";
+import DetalleMateria from "./components/DetalleMateria.vue";
 
 Vue.use(VueRouter);
 
@@ -52,6 +53,11 @@ export default new VueRouter({
       path: "/student/register",
       name: "StudentRegister",
       component: StudentRegister,
+    },
+    {
+      path: "/dashboard/materia/:id_curso",
+      name: "DetalleMateria",
+      component: DetalleMateria
     },
     {
       path: "*",

@@ -17,7 +17,8 @@ import {
   faStar,
   faEnvelope,
   faCalendar,
-  faGraduationCap
+  faGraduationCap,
+  faArrowLeft
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faEdit,
@@ -29,7 +30,8 @@ library.add(faEdit,
   faStar,
   faEnvelope,
   faCalendar,
-  faGraduationCap
+  faGraduationCap,
+  faArrowLeft
 );
 
 Vue.config.productionTip = false;
