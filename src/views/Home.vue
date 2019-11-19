@@ -1,8 +1,5 @@
 <template>
 <div class="mt-3">
-  <!-- <div class="text-secondary text-center">
-    ¡Hola <span class="font-weight-bold text-ingo">{{user}}</span>!
-  </div> -->
   <div class="container text-center animated slideInUp">
     <div class="row justify-content-center">
       <div class="col-10 col-md-10 col-lg-8 col-xl-7">
@@ -33,8 +30,7 @@
 
 <script>
 export default {
-  name: "Home",
-  props: ["user"]
+  name: "Home"
 };
 </script>
 

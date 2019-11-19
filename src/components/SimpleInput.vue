@@ -7,7 +7,8 @@
       :type="type"
       :id="id"
       :placeholder="placeholder"
-      @input="updateValue($event.target.value)"
+      @input="$emit('input', $event.target.value);"
+      autocomplete="off"
     />
   </section>
 </template>
@@ -16,10 +17,5 @@
 export default {
   name: "simpleInput",
   props: ["type", "id", "placeholder","value"],
-  methods: {
-    updateValue: function(value) {
-      this.$emit("input", value);
-    }
-  }
 }
 </script>

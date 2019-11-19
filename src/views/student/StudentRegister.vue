@@ -1,8 +1,8 @@
 <template>
-  <div v-if="user" class="container">
-    <h1>Completa tu registro</h1>
+  <div class="container">
     <div>
-      <h3>Bienvenido(a) {{user}}</h3>
+      <h1></h1>
+      <h3>Completa tu registro: {{user.name}}</h3>
     </div>
     <form class="mt-4">
       <section class="form-group row">
@@ -54,6 +54,7 @@
       <div class="form-group">
         <button @click="finishRegister" class="btn btn-primary">Completar Registro</button>
       </div>
+      <p class="text-center">después</p>
     </form>
   </div>
 </template>
@@ -64,7 +65,7 @@ import db from "../../db";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import EstadoForm from "@/components/EstadoForm";
 export default {
-  name: "student register",
+  name: "StudentRegister",
   components: {
     FontAwesomeIcon,
     EstadoForm
@@ -74,10 +75,11 @@ export default {
       dob: null,
       school: "",
       area: "",
-      areasDeInteres: [
-        
-      ],
-      user: null
+      areasDeInteres: [],
+      user: {
+        id: "",
+        name: ""
+      }
     }
   },
   methods: {
@@ -92,7 +94,19 @@ export default {
       {
         db.collection("alumnos").doc(this.user.uid).update(data);
       }
-    }
+    },
+  },
+  mounted() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.user.id = user.uid;
+        if (!name) this.user.name = "Sexo anal en el ano";
+        else this.user.name = user.displayName;
+      } else {
+        this.user.name = "Sexo Anal en el ano";
+      }
+    });
   }
-};
+
+}
 </script>

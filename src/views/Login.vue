@@ -65,7 +65,7 @@ export default {
     return {
       correo: "",
       contrasenia: "",
-      error: ""
+      error: "",
     };
   },
   methods: {

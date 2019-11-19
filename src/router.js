@@ -1,13 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "./views/Home";
-import Login from "./views/Login";
-import SignUp from "./views/SignUp";
-import About from "./views/About";
-import Materias from "./views/Materias";
-import sDashboard from "./views/student/Dashboard";
-import TeacherRegister from "./views/teacher/TeacherRegister";
-import StudentRegister from "./views/student/StudentRegister"
+import Home from "./views/Home.vue";
+import Login from "./views/Login.vue";
+import SignUp from "./views/SignUp.vue";
+import About from "./views/About.vue";
+import Materias from "./views/Materias.vue";
+import sDashboard from "./views/student/Dashboard.vue";
+import TeacherRegister from "./views/teacher/TeacherRegister.vue";
+import StudentRegister from "./views/student/StudentRegister.vue";
 
 Vue.use(VueRouter);
 
@@ -15,43 +15,43 @@ export default new VueRouter({
   routes: [
     {
       path: "/",
-      name: "home",
+      name: "Home",
       component: Home
     },
     {
       path: "/login",
-      name: "login",
-      component: Login
+      name: "Login",
+      component: Login,
     },
     {
       path: "/signup",
-      name: "signup",
-      component: SignUp
+      name: "SignUp",
+      component: SignUp,
     },
     {
       path: "/about",
-      name: "about",
+      name: "About",
       component: About
     },
     {
       path: "/materias",
-      name: "materias",
+      name: "Materias",
       component: Materias
     },
     {
       path: "/student/dashboard",
-      name: "student dashboard",
-      component: sDashboard
+      name: "StudentDashboard",
+      component: sDashboard,
     },
     {
       path: "/teacher/register",
-      name: "Teacher Register",
-      component: TeacherRegister
+      name: "TeacherRegister",
+      component: TeacherRegister,
     },
     {
       path: "/student/register",
-      name: "Student Register",
-      component: StudentRegister
+      name: "StudentRegister",
+      component: StudentRegister,
     },
     {
       path: "*",
@@ -59,3 +59,4 @@ export default new VueRouter({
     }
   ]
 });
+

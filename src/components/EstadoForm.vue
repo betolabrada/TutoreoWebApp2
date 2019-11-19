@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: "States data form",
+  name: "EstadoForm",
   data: function() {
     return {
       state: "",
