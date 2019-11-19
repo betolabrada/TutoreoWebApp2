@@ -53,17 +53,19 @@ export default {
 
             const coll = !this.maestro ? "alumnos" : "maestros";
             const pathName = !this.maestro ? "StudentRegister" : "TeacherRegister";
-
-            user.user.updateProfile({
-              displayName: this.nombre
-            });
-
+            
             db.collection(coll)
               .doc(user.user.uid)
               .set(userData);
 
-            this.$router.push({ name: pathName })
-              .catch(function(error) {alert("Error: ", error)});
+            user.user.updateProfile({
+              displayName: this.nombre
+            }).then(()=>{
+              this.$router.push({ name: pathName })
+                .catch(function(error) {alert("Error: ", error)});
+            });
+
+
             
           },
           err => {

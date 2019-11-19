@@ -54,14 +54,14 @@
       <div class="form-group">
         <button @click="finishRegister" class="btn btn-primary">Completar Registro</button>
       </div>
-      <p class="text-center">después</p>
+      <p class="text-center"> <router-link to="/dashboard">omitir</router-link>  </p>
     </form>
   </div>
 </template>
 
 <script>
 import firebase from "firebase";
-import db from "../../db";
+// import db from "../../db";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import EstadoForm from "@/components/EstadoForm";
 export default {
@@ -84,28 +84,21 @@ export default {
   },
   methods: {
     finishRegister: function() {
-      const data = {
-        fechaDeNacimiento: this.dob,
-        escolaridad: this.school,
-        areaDeInteres: this.area,
-      };
-      this.user = firebase.auth().currentUser;
-      if (this.user)
-      {
-        db.collection("alumnos").doc(this.user.uid).update(data);
-      }
+      // const data = {
+      //   fechaDeNacimiento: this.dob,
+      //   escolaridad: this.school,
+      //   areaDeInteres: this.area,
+      // };
+      // const cuser = firebase.auth().currentUser;
+      // if (cuser)
+      // {
+      //   this.user.name = cuser.displayName;
+      //   db.collection("alumnos").doc(cuser.uid).update(data);
+      // }
     },
   },
   mounted() {
-    firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.user.id = user.uid;
-        if (!name) this.user.name = "Sexo anal en el ano";
-        else this.user.name = user.displayName;
-      } else {
-        this.user.name = "Sexo Anal en el ano";
-      }
-    });
+    this.user.name = firebase.auth().currentUser.displayName;
   }
 
 }
