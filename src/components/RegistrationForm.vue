@@ -11,10 +11,6 @@
           Registrarse
         </button>
       </div>
-<<<<<<< HEAD
-      
-=======
->>>>>>> e73523190db7a7461b34dbe34ab7838f7c82de88
     </form>
   </div>
 </template>

@@ -1,8 +1,95 @@
 <template>
   <div class="container">
-    <div>
-      <h1></h1>
-      <h3>Completa tu registro: {{user.name}}</h3>
+    <div class="row justify-content-md-center">
+      <div class="text-center">
+        <!-- <h1>¡Hola profesor: {{userName}}!</h1> -->
+        <p>
+          Te damos las gracias por unirte a nuestra plataforma Tuto. Necesitamos que nos proporciones más información
+          acerca del curso que estarás impartiendo
+        </p>
+      </div>
+      <div class="container-fluid">
+
+      <form>
+        <div class="col-10 form-group">
+          <h3>Curso:</h3>
+          <simple-input
+            type="text"
+            id="nombreCurso"
+            placeholder="escribe aquí un nombre identificador del curso (Ej.'Matemáticas Avanzadas')"
+            v-model="curso.nombre"
+          ></simple-input>
+        </div>
+        <div class="col-10 form-group">
+          <h3>Descripción</h3>
+          <simple-text-area
+            type="text"
+            id="nombreCurso"
+            placeholder="breve descripción de los contenidos cubiertos en el curso"
+            v-model="curso.descripcion"
+          ></simple-text-area>
+        </div>
+        <div class="col-10 form-group">
+          <h3>Requisitos:</h3>
+          <simple-text-area
+            type="text"
+            id="nombreCurso"
+            placeholder="escribe aquí los conocimientos previos para tomar el curso (si es que lo hay) "
+            v-model="curso.requisitos"
+          ></simple-text-area>
+        </div>
+        <div class="form-group text-center">
+          <button @click="registerCurso" class="btn btn-primary">completar registro</button>
+        </div>
+      </form>
+      </div>
     </div>
   </div>
 </template>
+
+<script>
+// import firebase from "firebase";
+import SimpleInput from "@/components/SimpleInput.vue";
+import SimpleTextArea from "@/components/SimpleTextArea.vue";
+import db from "@/db.js"
+export default {
+  name: "TeacherRegister",
+  data: function() {
+    return {
+      curso: {
+        id_curso: "",
+        nombre: "",
+        descripcion: "",
+        requisitos: ""
+      },
+      dataSuccess: ""
+    };
+  },
+  components: {
+    SimpleInput,
+    SimpleTextArea
+  },
+  methods: {
+    registerCurso: function() {
+      db.collection("cursos")
+        .add({
+          nombre: this.nombre,
+          descripcion: this.descripcion,
+          requisitos: this.requisitos
+        })
+        .then(() => {
+          alert('Curso registrado exitosamente');
+          this.$router.push({
+            name: "DashboardMateria",
+            params: ""
+          });
+        });
+    }
+  }
+  // computed: {
+  //   userName() {
+  //     return firebase.auth().currentUser.displayName;
+  //   }
+  // }
+};
+</script>
