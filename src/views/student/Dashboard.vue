@@ -40,7 +40,7 @@ export default {
     };
   },
   methods: {
-    redirect: function(){
+    redirect: function() {
       alert("redireccionando");
     }
   },
@@ -51,28 +51,37 @@ export default {
         ? firebase.auth().currentUser.displayName
         : firebase.auth().currentUser.email;
       this.error = "";
+
+      let idsStudentInCurso = [];
+      db.collection("alumnos")
+        .doc(this.user.id)
+        .get()
+        .then(doc => {
+          idsStudentInCurso = doc.data().cursos_inscrito;
+
+          db.collection("cursos")
+            .get()
+            .then(querySnapshot => {
+              querySnapshot.forEach(doc => {
+                idsStudentInCurso.forEach(id => {
+                  // alert(doc.id + "=" + id.slice(1,id.length-1));
+                  if (doc.id === id.slice(1,id.length-1)) {
+                    this.materias.push({
+                      id_curso: doc.id,
+                      nombre: doc.data().nombre
+                    });
+                  }
+                });
+              });
+            });
+        });
+        
     } else {
       this.error = "Inicia Sesión para ver esta página";
       this.user = {};
     }
   },
 
-  created() {
-    db.collection("alumnos")
-      .doc(this.user.id)
-      .then(doc => {
-        this.materias = doc.data().cursos_inscrito;
-      });
-    db.collection("cursos")
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          this.materias.push({
-            id_curso: doc.id,
-            nombre: doc.data().nombre
-          });
-        });
-      });
-  }
+  created() {}
 };
 </script>

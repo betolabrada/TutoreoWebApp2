@@ -11,7 +11,6 @@
           Registrarse
         </button>
       </div>
-      <bootstrap-modal email="correo"></bootstrap-modal>
     </form>
   </div>
 </template>
@@ -20,14 +19,12 @@
 import Firebase from "firebase";
 import SimpleInput from "@/components/SimpleInput.vue";
 import SimpleSwitch from "@/components/SimpleSwitch.vue";
-import BootstrapModal from "@/components/BootstrapModal.vue";
 import db from "../db";
 export default {
   name: "Register",
   components: {
     SimpleInput,
-    SimpleSwitch,
-    BootstrapModal
+    SimpleSwitch
   },
   data: function() {
     return {
