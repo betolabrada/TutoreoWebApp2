@@ -1,9 +1,15 @@
 <template>
-  <div class="about">
-    <h1>Materias</h1>
-    <ul>
-      <li :key="materia.nombre" v-for="materia in materias">
-        {{materia.name}}
+  <div class="container">
+    <ul class="list-group mt-4">
+      <li class="list-group-item active text-center">Todas las materias</li>
+      <li
+        :key="materia.id_curso"
+        v-for="materia in materias"
+        class="list-group-item list-group-item-action"
+      >
+        <router-link
+          :to="{ path: `/materias/materia/${materia.id_curso}` } "
+        >{{materia.nombre}}</router-link>
       </li>
     </ul>
   </div>
@@ -15,17 +21,17 @@ import db from "@/db.js";
 export default {
   data: function() {
     return {
-      materias: [] 
-    }
+      materias: []
+    };
   },
   mounted() {
     db.collection("cursos")
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
-          this.materias = doc.data();
+          this.materias.push(doc.data());
         });
       });
-  }        
-}
+  }
+};
 </script>

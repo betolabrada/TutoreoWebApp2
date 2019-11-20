@@ -9,6 +9,7 @@ import Dashboard from "./views/student/Dashboard.vue";
 import TeacherRegister from "./views/teacher/TeacherRegister.vue";
 import StudentRegister from "./views/student/StudentRegister.vue";
 import DetalleMateria from "./components/DetalleMateria.vue";
+import BootstrapModal from "./components/BootstrapModal.vue";
 
 Vue.use(VueRouter);
 
@@ -58,6 +59,16 @@ export default new VueRouter({
       path: "/dashboard/materia/:id_curso",
       name: "DetalleMateria",
       component: DetalleMateria
+    },
+    {
+      path: "/materias/materia/:id_curso",
+      name: "DetalleMateria",
+      component: DetalleMateria
+    },
+    {
+      path:"/pruebitas",
+      name:"PruebaModal",
+      component: BootstrapModal
     },
     {
       path: "*",
