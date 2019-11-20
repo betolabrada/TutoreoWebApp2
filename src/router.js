@@ -69,12 +69,12 @@ export default new VueRouter({
       component: DetalleMateria
     },
     {
-      path: "/dashboard/materia/:id_curso/:id_tarea",
+      path: "/dashboard/materia/:id_curso/tarea/:id_tarea",
       name: "DetalleTarea",
       component: DetalleTarea
     },
     {
-      path: "/dashboard/materia/:id_curso/:id_contenido",
+      path: "/dashboard/materia/:id_curso/contenido/:id_contenido",
       name: "DetalleContenido",
       component: DetalleContenido
     },

@@ -61,9 +61,6 @@ export default {
               this.$router.push({ name: pathName })
                 .catch(function(error) {alert("Error: ", error)});
             });
-
-
-            
           },
           err => {
             alert(err);

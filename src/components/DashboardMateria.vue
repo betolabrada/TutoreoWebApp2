@@ -8,7 +8,7 @@
             <table class="table table-striped">
               <tbody>
                 <tr><!--repetir con v-for -->
-                  <td class="col-md-1"><router-link class="btn btn-secondary" :to="{ name: 'DetalleContenido', params: {id_curso: id_curso}, id_contenido: contenidos[0].id_contenido } " >nombre del contenido</router-link></td>
+                  <td class="col-md-1"><router-link class="btn btn-secondary" :to="{ name: 'DetalleContenido', params: {id_curso: id_curso, id_contenido: contenidos[0].id_contenido} } " >nombre del contenido</router-link></td>
                 </tr>
               </tbody>
             </table>
@@ -26,7 +26,7 @@
               </thead>
               <tbody>
                 <tr><!--repetir con v-for -->
-                  <td class="col-md-1"><router-link class="btn btn-secondary" :to="{ name: 'DetalleTarea', params: {id_curso: id_curso}, id_tarea: tareas[0].id_tarea } " >nombre de la tarea</router-link></td>
+                  <td class="col-md-1"><router-link class="btn btn-secondary" :to="{ name: 'DetalleTarea', params: {id_curso: id_curso, id_tarea: tareas[0].id_tarea} } " >nombre de la tarea</router-link></td>
                   <td class="col-md-1">nota</td>
                 </tr>
               </tbody>

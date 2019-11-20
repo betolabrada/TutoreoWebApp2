@@ -15,7 +15,7 @@
           class="list-group-item list-group-item-action"
         >
           <router-link
-            :to="{ name: 'DetalleMateria', params: {id_curso: materia.id_curso} } "
+            :to="{ name: 'DashboardMateria', params: {id_curso: materia.id_curso} } "
           >{{materia.nombre}}</router-link>
         </li>
       </div>
@@ -81,5 +81,17 @@ export default {
       this.user = {};
     }
   },
+  created() {
+    db.collection("cursos")
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          this.materias.push({
+            id_curso: doc.id,
+            nombre: doc.data().nombre
+          });
+        });
+      });
+  }
 };
 </script>
