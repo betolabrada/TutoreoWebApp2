@@ -52,6 +52,11 @@ export default {
   },
 
   created() {
+    db.collection("alumnos")
+      .doc(this.user.id)
+      .then(doc => {
+        this.materias = doc.data().cursos_inscrito;
+      });
     db.collection("cursos")
       .get()
       .then(querySnapshot => {
