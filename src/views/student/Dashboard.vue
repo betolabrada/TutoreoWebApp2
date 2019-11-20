@@ -7,7 +7,7 @@
         <span class="font-weight-bold text-ingo">{{ user.name }}</span>!
       </div>
       <div class="list-group">
-        <router-link class="btn btn-secondary" to="/Materias">Añadir Materia</router-link>
+        <router-link class="btn btn-secondary" :to="{name:'Materias', params: {materiasDeAlumno: materias}}">Añadir Materia</router-link>
         <a href="#" class="list-group-item list-group-item-action active text-center">Tus materias</a>
         <li
           :key="materia.id_curso"
@@ -36,7 +36,7 @@ export default {
         email: ""
       },
       error: "",
-      materias: []
+      materias: [],
     };
   },
   methods: {
@@ -80,18 +80,18 @@ export default {
       this.error = "Inicia Sesión para ver esta página";
       this.user = {};
     }
-  },
-  created() {
-    db.collection("cursos")
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          this.materias.push({
-            id_curso: doc.id,
-            nombre: doc.data().nombre
-          });
-        });
-      });
   }
+  // created() {
+  //   db.collection("cursos")
+  //     .get()
+  //     .then(querySnapshot => {
+  //       querySnapshot.forEach(doc => {
+  //         this.materias.push({
+  //           id_curso: doc.id,
+  //           nombre: doc.data().nombre
+  //         });
+  //       });
+  //     });
+  // }
 };
 </script>
