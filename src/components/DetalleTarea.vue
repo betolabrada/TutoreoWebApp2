@@ -8,7 +8,7 @@
 import db from "@/db.js";
 
 export default {
-  name: "DetalleMateria",
+  name: "DetalleTarea",
   data: function() {
   	return {
   		id_tarea: '',

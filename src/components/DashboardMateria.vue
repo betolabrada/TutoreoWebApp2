@@ -80,9 +80,7 @@ export default {
           	nombre: doc.data().nombre
           	}
           this.contenidos.push(contenidoData);
-
         });
-
       });
 
   }
