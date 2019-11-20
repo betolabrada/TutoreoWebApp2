@@ -7,6 +7,7 @@
         <span class="font-weight-bold text-ingo">{{ user.name }}</span>!
       </div>
       <div class="list-group">
+        <router-link class="btn btn-secondary" to="/Materias">Añadir Materia</router-link>
         <a href="#" class="list-group-item list-group-item-action active text-center">Tus materias</a>
         <li
           :key="materia.id_curso"
@@ -37,6 +38,11 @@ export default {
       error: "",
       materias: []
     };
+  },
+  methods: {
+    redirect: function(){
+      alert("redireccionando");
+    }
   },
   mounted() {
     if (firebase.auth().currentUser) {
