@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <router-link class="btn btn-secondary" to="/Dashboard">Dashboard</router-link>
+    <router-link v-if="isLoggedIn" class="btn btn-secondary" to="/Dashboard">Dashboard</router-link>
     <ul class="list-group mt-4">
       <li class="list-group-item active text-center">Todas las materias</li>
       <li
@@ -17,12 +17,13 @@
 </template>
 
 <script>
-// import firebase from "firebase";
+import firebase from "firebase";
 import db from "@/db.js";
 export default {
   data: function() {
     return {
-      materias: []
+      materias: [],
+      isLoggedIn: false
     };
   },
   mounted() {
@@ -33,6 +34,13 @@ export default {
           this.materias.push(doc.data());
         });
       });
+    
+    if (firebase.auth().currentUser) {
+      this.isLoggedIn = true;
+    }
+    else {
+      this.isLoggedIn = false;
+    }
   }
 };
 </script>
