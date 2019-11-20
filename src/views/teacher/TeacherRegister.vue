@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row justify-content-md-center">
       <div class="text-center">
-        <!-- <h1>¡Hola profesor: {{userName}}!</h1> -->
+        <h1>¡Hola profesor: {{userName}}!</h1>
         <p>
           Te damos las gracias por unirte a nuestra plataforma Tuto. Necesitamos que nos proporciones más información
           acerca del curso que estarás impartiendo
@@ -48,7 +48,7 @@
 </template>
 
 <script>
-// import firebase from "firebase";
+import firebase from "firebase";
 import SimpleInput from "@/components/SimpleInput.vue";
 import SimpleTextArea from "@/components/SimpleTextArea.vue";
 import db from "@/db.js"
@@ -73,23 +73,26 @@ export default {
     registerCurso: function() {
       db.collection("cursos")
         .add({
-          nombre: this.nombre,
-          descripcion: this.descripcion,
-          requisitos: this.requisitos
+          nombre: this.curso.nombre,
+          descripcion: this.curso.descripcion,
+          requisitos: this.curso.requisitos
         })
-        .then(() => {
-          alert('Curso registrado exitosamente');
+        .then(docRef => {
+          // completar curso a maestro
+          // db.collection("maestros")
+          //   .doc(docRef.id)
+          //   .set({});
           this.$router.push({
-            name: "DashboardMateria",
-            params: ""
-          });
+            name: "Dashboard"
+          })
+          .catch(function(error) {alert("Error: ", error)});
         });
     }
+  },
+  computed: {
+    userName() {
+      return firebase.auth().currentUser.displayName;
+    }
   }
-  // computed: {
-  //   userName() {
-  //     return firebase.auth().currentUser.displayName;
-  //   }
-  // }
 };
 </script>
