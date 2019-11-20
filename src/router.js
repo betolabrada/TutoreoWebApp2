@@ -10,6 +10,9 @@ import TeacherRegister from "./views/teacher/TeacherRegister.vue";
 import StudentRegister from "./views/student/StudentRegister.vue";
 import DetalleMateria from "./components/DetalleMateria.vue";
 import BootstrapModal from "./components/BootstrapModal.vue";
+import DashboardMateria from "./components/DashboardMateria.vue";
+import DetalleTarea from "./components/DetalleTarea.vue";
+import DetalleContenido from "./components/DetalleContenido.vue";
 
 Vue.use(VueRouter);
 
@@ -57,13 +60,23 @@ export default new VueRouter({
     },
     {
       path: "/dashboard/materia/:id_curso",
-      name: "DetalleMateria",
-      component: DetalleMateria
+      name: "DashboardMateria",
+      component: DashboardMateria
     },
     {
       path: "/materias/materia/:id_curso",
       name: "DetalleMateria",
       component: DetalleMateria
+    },
+    {
+      path: "/dashboard/materia/:id_curso/:id_tarea",
+      name: "DetalleTarea",
+      component: DetalleTarea
+    },
+    {
+      path: "/dashboard/materia/:id_curso/:id_contenido",
+      name: "DetalleContenido",
+      component: DetalleContenido
     },
     {
       path:"/pruebitas",

@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <router-link class="btn btn-secondary" to="/Dashboard">Dashboard</router-link>
     <ul class="list-group mt-4">
       <li class="list-group-item active text-center">Todas las materias</li>
       <li
