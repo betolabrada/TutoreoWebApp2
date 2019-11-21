@@ -5,7 +5,7 @@
       <li class="list-group-item active text-center">Todas las materias</li>
       <li
         :key="materia.id_curso"
-        v-for="materia in materias"
+        v-for="materia in available"
         class="list-group-item list-group-item-action"
       >
         <router-link
@@ -24,8 +24,18 @@ export default {
   data: function() {
     return {
       materias: [],
+      materias_inscritas: [],
       isLoggedIn: false
     };
+  },
+  computed: {
+    available: function() {
+      return this.materias.filter(materia => {
+        return !this.materias_inscritas.includes(materia.id_curso)
+      });
+      
+        
+    }
   },
   mounted() {
     db.collection("cursos")
@@ -38,6 +48,12 @@ export default {
 
     if (firebase.auth().currentUser) {
       this.isLoggedIn = true;
+      db.collection("alumnos")
+        .doc(firebase.auth().currentUser.uid)
+        .get()
+        .then(doc => {
+          this.materias_inscritas = doc.data().cursos_inscritos;
+        });
     } else {
       this.isLoggedIn = false;
     }
