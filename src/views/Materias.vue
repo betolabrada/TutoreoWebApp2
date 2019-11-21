@@ -35,11 +35,10 @@ export default {
           this.materias.push(doc.data());
         });
       });
-    
+
     if (firebase.auth().currentUser) {
       this.isLoggedIn = true;
-    }
-    else {
+    } else {
       this.isLoggedIn = false;
     }
   }

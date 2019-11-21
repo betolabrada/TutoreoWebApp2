@@ -10,8 +10,11 @@
             <div class="col-12 alert alert-danger px-3" v-if="error">{{error}}</div>
             <h1>{{name}}</h1>
             <h3>Descripción:</h3>
+            <p>{{descripcion}}</p>
             <h3>Requisitos:</h3>
+            <p>{{requisitos}}</p>
             <h3>Profesor:</h3>
+            <p>{{profesor}}</p>
             <simple-switch
               idSwitch="leido"
               labelTxt="He leido y acepto los requisitos"
@@ -28,14 +31,13 @@
               <button class="btn btn-secondary ml-4">ver profesor</button>
             </div>
             <p v-if="!isLoggedIn" class="text-center mt-2 mb-0">
-              <router-link to="/login">inicia sesión</router-link>
-              para poder registrarte
+              <router-link to="/login">inicia sesión</router-link>para poder registrarte
             </p>
           </div>
         </div>
       </div>
     </div>
-    <bootstrap-modal v-if="showModal && haLeido" @close="showModal=false" :nombreCurso="name"></bootstrap-modal>
+    <bootstrap-modal v-if="showModal && haLeido" @close="showModal=false" @confirmed="addCurso" :nombreCurso="name"></bootstrap-modal>
   </div>
 </template>
 
@@ -51,9 +53,14 @@ export default {
     return {
       id_curso: null,
       name: null,
+      descripcion: null,
+      requisitos: null,
+      profesor: null,
+
       haLeido: false,
       showModal: false,
       error: "",
+
       isLoggedIn: false,
       user: {
         id: "",
@@ -70,6 +77,8 @@ export default {
           next(vm => {
             vm.id_curso = doc.data().id_curso;
             vm.name = doc.data().nombre;
+            vm.descripcion = doc.data().descripcion;
+            vm.requisitos = doc.data().requisitos;
           });
         });
       });
@@ -92,6 +101,17 @@ export default {
       } else {
         this.error = "Por favor confirme si está de acuerdo con los requisitos";
       }
+    },
+    addCurso: function() {
+      db.collection("alumnos")
+        .doc(this.user.id)
+        .update({
+          cursos_inscritos: firebase.firestore.FieldValue.arrayUnion(this.id_curso)
+        })
+        .then(() => {
+          alert("te has inscrito al curso");
+          this.$router.push("/dashboard");
+        });
     }
   },
   mounted() {
@@ -105,6 +125,15 @@ export default {
       this.user = {};
       this.isLoggedIn = false;
     }
+
+    db.collection("maestros")
+      .where("curso.id_curso", "==", this.$route.params.id_curso)
+      .get()
+      .then(querySnapshot => {
+        querySnapshot.forEach(doc => {
+          this.profesor = doc.data().nombre;
+        });
+      });
   },
   components: {
     FontAwesomeIcon,

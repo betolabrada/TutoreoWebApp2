@@ -7,7 +7,7 @@
         <span class="font-weight-bold text-ingo">{{ user.name }}</span>!
       </div>
       <div class="list-group">
-        <router-link class="btn btn-secondary" :to="{name:'Materias', params: {materiasDeAlumno: materias}}">Añadir Materia</router-link>
+        <router-link v-if="!vistaMaestro" class="btn btn-secondary" :to="{name:'Materias', params: {materiasDeAlumno: materias}}">Añadir Materia</router-link>
         <a href="#" class="list-group-item list-group-item-action active text-center">Tus materias</a>
         <li
           :key="materia.id_curso"
@@ -37,6 +37,7 @@ export default {
       },
       error: "",
       materias: [],
+      vistaMaestro: false
     };
   },
   methods: {
@@ -57,23 +58,34 @@ export default {
         .doc(this.user.id)
         .get()
         .then(doc => {
-          idsStudentInCurso = doc.data().cursos_inscrito;
-
-          db.collection("cursos")
-            .get()
-            .then(querySnapshot => {
-              querySnapshot.forEach(doc => {
-                idsStudentInCurso.forEach(id => {
-                  // alert(doc.id + "=" + id.slice(1,id.length-1));
-                  if (doc.id === id.slice(1,id.length-1)) {
-                    this.materias.push({
-                      id_curso: doc.id,
-                      nombre: doc.data().nombre
-                    });
-                  }
+          if (doc.exists) {
+            this.vistaMaestro = false;
+            idsStudentInCurso = doc.data().cursos_inscritos;
+            db.collection("cursos")
+              .get()
+              .then(querySnapshot => {
+                querySnapshot.forEach(doc => {
+                  idsStudentInCurso.forEach(id => {
+                    if (doc.id === id) {
+                      this.materias.push({
+                        id_curso: doc.id,
+                        nombre: doc.data().nombre
+                      });
+                    }
+                  });
                 });
               });
-            });
+          }
+
+          else {
+            db.collection("maestros")
+              .doc(this.user.id)
+              .get()
+              .then(doc => {
+                this.materias.push(doc.data().curso);
+                this.vistaMaestro = true;
+              });
+          }
         });
         
     } else {
