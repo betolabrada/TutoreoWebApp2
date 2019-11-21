@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="container">
   	<router-link class="btn btn-secondary" to="/Dashboard">Dashboard</router-link>
   	<h1>{{name}}</h1>
   	<div class="col-xs-6">
