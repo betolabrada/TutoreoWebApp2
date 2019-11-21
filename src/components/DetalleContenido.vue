@@ -1,6 +1,17 @@
 <template>
   <div>
-  	<h1>{{contenidos[0].nombre}}</h1>
+    <router-link class="btn btn-secondary" :to="{ name: 'DashboardMateria', params: {id_curso: $route.params.id_curso} }">Regresar</router-link>
+    <div class="card bg-light">
+      <div class="card-body">
+        <div class="about text-center">
+          <h1>{{contenidos[0].nombre}}</h1>
+              <h3>Descripción:</h3>
+              <h3>Requisitos:</h3>
+              <h3>Profesor:</h3>
+              <!--button @click="upload" class="btn btn-primary"> Subir Tarea</button-->
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
