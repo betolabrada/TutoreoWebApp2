@@ -13,6 +13,7 @@ import BootstrapModal from "./components/BootstrapModal.vue";
 import DashboardMateria from "./components/DashboardMateria.vue";
 import DetalleTarea from "./components/DetalleTarea.vue";
 import DetalleContenido from "./components/DetalleContenido.vue";
+import DetalleProfesor from "./components/DetalleProfesor.vue";
 
 Vue.use(VueRouter);
 
@@ -72,6 +73,11 @@ export default new VueRouter({
       path: "/dashboard/materia/:id_curso/tarea/:id_tarea",
       name: "DetalleTarea",
       component: DetalleTarea
+    },
+    {
+      path: "/dashboard/profesor/:id_profesor",
+      name: "DetalleProfesor",
+      component: DetalleProfesor
     },
     {
       path: "/dashboard/materia/:id_curso/contenido/:id_contenido",
