@@ -28,7 +28,9 @@
                 @click="openModal(haLeido)"
                 :disabled="!isLoggedIn"
               >quiero inscribirme a este curso</button>
-              <button class="btn btn-secondary ml-4">ver profesor</button>
+
+              <router-link class="btn btn-secondary ml-4" :to="{ name: 'DetalleProfesor', params: {id_curso: $route.params.id_curso} }">ver profesor</router-link>
+
             </div>
             <p v-if="!isLoggedIn" class="text-center mt-2 mb-0">
               <router-link to="/login">inicia sesión</router-link>para poder registrarte
