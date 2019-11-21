@@ -9,7 +9,7 @@
         class="list-group-item list-group-item-action"
       >
         <router-link
-          :to="{ path: `/materias/materia/${materia.id_curso}` } "
+          :to="{ name: 'DetalleMateria', params: {id_curso: materia.id_curso} } "
         >{{materia.nombre}}</router-link>
       </li>
     </ul>
@@ -20,6 +20,7 @@
 import firebase from "firebase";
 import db from "@/db.js";
 export default {
+  name: "Materias",
   data: function() {
     return {
       materias: [],

@@ -1,105 +1,45 @@
 <template>
   <div class="container">
-    <div>
-      <h1></h1>
-      <h3>Completa tu registro: {{user.name}}</h3>
-    </div>
-    <form class="mt-4">
-      <section class="form-group row">
-        <label for="dob" class="col-sm-2 col-form-label">Fecha de nacimiento:</label>
-        <div class="input-group col-sm-6">
-          <div class="input-group-prepend">
-            <span class="input-group-text">
-              <font-awesome-icon icon="calendar" />
-            </span>
-          </div>
-          <input id="dob" class="form-control col-sm-10" type="date" v-model="dob" />
-        </div>
-      </section>
-      <section class="form-group row">
-        <label for="school" class="col-sm-2 col-form-label">Escolaridad:</label>
-        <div class="input-group col-sm-6">
-          <div class="input-group-prepend">
-            <span class="input-group-text">
-              <font-awesome-icon icon="graduation-cap" />
-            </span>
-          </div>
-          <select id="school" class="form-control" v-model="school">
-            <option>Secundaria</option>
-            <option>Preparatoria</option>
-            <option>Universidad</option>
-            <option>Maestría</option>
-          </select>
-        </div>
-      </section>
-      <section class="form-group row">
-        <label for="area" class="col-sm-2 col-form-label">Área que más te interesa:</label>
-        <div class="input-group col-sm-6">
-          <select id="area" class="form-control" v-model="area">
-            <option>Animación Digital</option>
-            <option>Desarrollo Web</option>
-            <option>Programación</option>
-            <option>Arquitectura</option>
-            <option>Derecho</option>
-            <option>Comunicación</option>
-            <option>Ingeniería Civil</option>
-            <option>Ingeniería Mecánica</option>
-            <option>Relaciones Internacionales</option>
-            <option>Mercadotecnia</option>
-            <option>Finanzas</option>
-          </select>
-        </div>
-      </section>
-      <EstadoForm />
-      <div class="form-group">
-        <button @click="finishRegister" class="btn btn-primary">Completar Registro</button>
+    <div class="row justify-content-center">
+      <div class="text-center">
+        <h1>¡Hola alumno: {{userName}}!</h1>
+        <p>Te damos las gracias por unirte a nuestra plataforma Tuto.</p>
       </div>
-      <p class="text-center"> <router-link to="/dashboard">omitir</router-link>  </p>
-    </form>
+      <div class="col-10 form-group text-center">
+        <button @click="finishRegister" class="btn btn-primary">comenzar a aprender</button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import firebase from "firebase";
-// import db from "../../db";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import EstadoForm from "@/components/EstadoForm";
+import db from "@/db.js";
 export default {
   name: "StudentRegister",
-  components: {
-    FontAwesomeIcon,
-    EstadoForm
-  },
   data: function() {
     return {
-      dob: null,
-      school: "",
-      area: "",
-      areasDeInteres: [],
-      user: {
-        id: "",
-        name: ""
-      }
-    }
+      cursos_inscritos: []
+    };
   },
   methods: {
     finishRegister: function() {
-      // const data = {
-      //   fechaDeNacimiento: this.dob,
-      //   escolaridad: this.school,
-      //   areaDeInteres: this.area,
-      // };
-      // const cuser = firebase.auth().currentUser;
-      // if (cuser)
-      // {
-      //   this.user.name = cuser.displayName;
-      //   db.collection("alumnos").doc(cuser.uid).update(data);
-      // }
-    },
+      db.collection("alumnos")
+        .doc(this.userID)
+        .set({ cursos_inscritos: this.cursos_inscritos }, { merge: true })
+        .then(() => {
+          alert("Bienvenido");
+          this.$router.push("/dashboard");
+        });
+    }
   },
-  mounted() {
-    this.user.name = firebase.auth().currentUser.displayName;
+  computed: {
+    userName: function() {
+      return firebase.auth().currentUser.displayName;
+    },
+    userID: function() {
+      return firebase.auth().currentUser.uid;
+    }
   }
-
-}
+};
 </script>
