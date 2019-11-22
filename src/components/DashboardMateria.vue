@@ -18,7 +18,7 @@
                 <router-link
                   class="btn btn-secondary"
                   :to="{ name: 'DetalleContenido', params: {id_curso: id_curso, id_contenido: contenido.id_contenido} } "
-                >nombre del contenido</router-link>
+                >{{contenido.titulo}}</router-link>
               </td>
             </tr>
           </tbody>
@@ -31,18 +31,19 @@
         <table class="table table-striped">
           <thead>
             <tr>
-              <th class="col-md-1">#</th>
+              <th class="col-md-1">Nombre Tarea</th>
               <th class="col-md-2">Calificacion</th>
             </tr>
           </thead>
           <tbody>
+            <tr v-if="!tareas">De momento no hay tareas disponibles para este curso</tr>
             <tr :key="tarea.id_tarea" v-for="tarea in tareas">
               <!--repetir con v-for -->
               <td  class="col-md-1">
                 <router-link
                   class="btn btn-secondary"
                   :to="{ name: 'DetalleTarea', params: {id_curso: id_curso, id_tarea: tarea.id_tarea} } "
-                >nombre de la tarea</router-link>
+                >{{tarea.nombre}}</router-link>
               </td>
               <td class="col-md-1">nota</td>
               <td class="col-md-1" v-if="!$route.params.vista_maestro">
@@ -81,29 +82,12 @@ export default {
             vm.id_curso = doc.data().id_curso;
             vm.name = doc.data().nombre;
             vm.contenidos = doc.data().contenidos;
+            vm.tareas = doc.data().tareas;
           });
         });
       });
   },
   mounted() {
-    // db.collection("tareas")
-    //   .get()
-    //   .then(querySnapshot => {
-    //     querySnapshot.forEach(doc => {
-    //       this.tareas.push(doc.data());
-    //     });
-    //   });
-    // db.collection("contenidos")
-    //   .get()
-    //   .then(querySnapshot => {
-    //     querySnapshot.forEach(doc => {
-    //       const contenidoData = {
-    //         id_contenido: doc.id,
-    //         nombre: doc.data().nombre
-    //       };
-    //       this.contenidos.push(contenidoData);
-    //     });
-    //   });
 
     db.collection("maestros")
       .where("curso.id_curso", "==", this.$route.params.id_curso)
