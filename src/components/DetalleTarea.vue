@@ -5,10 +5,7 @@
 	 		<div class="card-body">
 	 			<div class="about text-center">
 	 				<h1>{{name}}</h1>
-        			<h3>Descripción:</h3>
-        			<h3>Requisitos:</h3>
-        			<h3>Profesor:</h3>
-        			<button @click="upload" class="btn btn-primary"> Subir Tarea</button>
+        	<h3>Descripción: {{descripcion}}</h3>
 	 			</div>
 	 		</div>
 	 	</div>
@@ -23,34 +20,33 @@ export default {
   data: function() {
   	return {
   		id_tarea: '',
-  		name: ''
+  		name: '',
+      descripcion: ""
   	}
 	},
 	props: ['vistaMaestro'],
-  methods: {
-    upload: function() {
-      alert("Tarea subida");
-    }
-  },
-  beforeRouteEnter(to, from, next) {
-    db.collection("tareas")
-      .where("id_tarea", "==", to.params.id_tarea)
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          next(vm => {
-            vm.id_tarea = doc.data().id_tarea;
-            vm.name = doc.data().nombre;
-          });
-        });
-      });
-  },
 	goBack: function() {
 	  if (this.$route.fullPath.includes("materias")) {
 	    this.$router.push({ path: `/materias` });
 	  } else {
 	    this.$router.push({ path: `/dashboard` });
 	  }
-}
+  },
+  mounted(){
+    db.collection("cursos")
+      .doc(this.$route.params.id_curso)
+      .get()
+      .then(doc => {
+        if (doc.exists) {
+          const tarea = doc.data().tareas;
+          tarea.forEach(tareas => {
+            if (tareas.id_tarea == this.$route.params.id_tarea) {
+              this.name = tareas.nombre;
+              this.descripcion = tareas.descripcion;
+            }
+          });
+        }
+      });
+  } 
 }
 </script>
