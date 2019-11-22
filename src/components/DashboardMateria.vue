@@ -47,7 +47,7 @@
               </td>
               <td class="col-md-1">nota</td>
               <td class="col-md-1" v-if="!$route.params.vista_maestro">
-                <button @click="subirTareaAlumno" class="btn btn-info">subir tarea</button>
+                <router-link class="btn btn-info" :to="{ name: 'SubirTarea', params: {id_curso: id_curso, id_tarea: tarea.id_tarea}}">subir tarea</router-link>
               </td>
             </tr>
           </tbody>
