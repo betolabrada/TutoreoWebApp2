@@ -152,14 +152,9 @@ export default {
         })
         .then(() => {
           alert("materal subido exitosamente a sistema");
-          this.$router.push({
-            name: "DashboardMateria",
-            params: {
-              id_curso: this.$route.params.id_curso,
-              vista_maestro: true
-            }
-          });
+          this.$router.go();
         });
+      this.showModal = false;
     },
     subirTarea: function(dataToAdd) {
       const tarea = {
@@ -173,14 +168,9 @@ export default {
         })
         .then(() => {
           alert("tarea subida exitosamente a sistema");
-          this.$router.push({
-            name: "DashboardMateria",
-            params: {
-              id_curso: this.$route.params.id_curso,
-              vista_maestro: true
-            }
-          });
+          this.$router.go();
         });
+      this.showModal = false;
     },
     subirTareaAlumno: function() {
       alert("Se subirá tarea");
