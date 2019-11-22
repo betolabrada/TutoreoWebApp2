@@ -25,7 +25,8 @@ export default {
   		id_tarea: '',
   		name: ''
   	}
-  },
+	},
+	props: ['vistaMaestro'],
   methods: {
     upload: function() {
       alert("Tarea subida");

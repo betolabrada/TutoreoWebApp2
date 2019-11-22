@@ -1,8 +1,10 @@
 <template>
   <div class="container">
     <router-link class="btn btn-secondary mt-2" to="/Dashboard">Dashboard</router-link>
-    <button @click="subirTarea" class="btn btn-primary ml-3 mt-2">Agregar Tarea</button>
-    <button @click="subirContenido" class="btn btn-primary ml-3 mt-2">Agregar Contenido</button>
+    <div v-if="$route.params.vista_maestro" class="wrapper control">
+      <button @click="subirTarea" class="btn btn-primary ml-3 mt-2">Nueva Tarea</button>
+      <button @click="subirContenido" class="btn btn-primary ml-3 mt-2">Nuevo Contenido</button>
+    </div>
     <h1>{{name}}</h1>
     <div class="col-xs-6">
       <h2 class="sub-header">Contenido</h2>
@@ -42,6 +44,9 @@
                 >nombre de la tarea</router-link>
               </td>
               <td class="col-md-1">nota</td>
+              <td class="col-md-1" v-if="!$route.params.vista_maestro">
+                <button @click="subirTareaAlumno" class="btn btn-info">subir tarea</button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -103,6 +108,9 @@ export default {
     },
     subirContenido: function() {
       alert("se ha subido el contenido");
+    },
+    subirTareaAlumno: function() {
+      alert("Se subirá tarea");
     }
   }
 };

@@ -60,7 +60,7 @@ export default new VueRouter({
       component: StudentRegister,
     },
     {
-      path: "/dashboard/materia/:id_curso",
+      path: "/dashboard/materia/:id_curso/:vista_maestro",
       name: "DashboardMateria",
       component: DashboardMateria
     },

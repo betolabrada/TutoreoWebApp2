@@ -15,7 +15,7 @@
           class="list-group-item list-group-item-action"
         >
           <router-link
-            :to="{ name: 'DashboardMateria', params: {id_curso: materia.id_curso} } "
+            :to="{ name: 'DashboardMateria', params: {id_curso: materia.id_curso, vista_maestro: vistaMaestro} } "
           >{{materia.nombre}}</router-link>
         </li>
       </div>
