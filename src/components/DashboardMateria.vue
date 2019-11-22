@@ -1,6 +1,12 @@
-<template>
+<template> 
 	<div class="container">
-  	<router-link class="btn btn-secondary" to="/Dashboard">Dashboard</router-link>
+  	<router-link class="btn btn-secondary mt-2" to="/Dashboard">Dashboard</router-link>
+    <button @click="subirTarea" class="btn btn-primary ml-3 mt-2">
+      Agregar Tarea
+    </button>
+    <button @click="subirContenido" class="btn btn-primary ml-3 mt-2">
+      Agregar Contenido
+    </button>
   	<h1>{{name}}</h1>
   	<div class="col-xs-6">
 <h2 class="sub-header">Contenido</h2>
@@ -83,6 +89,14 @@ export default {
         });
       });
 
+  },
+  methods:{
+    subirTarea: function() {
+        alert("se ha subido la tarea");
+      },
+    subirContenido: function() {
+      alert("se ha subido el contenido");
+    }
   }
 }
 </script>
