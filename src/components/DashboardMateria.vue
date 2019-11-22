@@ -22,12 +22,12 @@
       <div class="table-responsive">
         <table class="table table-striped">
           <tbody>
-            <tr :key="contenido.id_contenido" v-for="contenido in contenidos">
+            <tr :key="contenido.titulo" v-for="contenido in contenidos">
               <!--repetir con v-for -->
               <td class="col-md-1">
                 <router-link
                   class="btn btn-secondary"
-                  :to="{ name: 'DetalleContenido', params: {id_curso: id_curso, id_contenido: contenido.id_contenido} } "
+                  :to="{ name: 'DetalleContenido', params: {id_curso: id_curso, id_contenido: contenido.titulo} } "
                 >{{contenido.titulo}}</router-link>
               </td>
             </tr>
@@ -47,19 +47,19 @@
           </thead>
           <tbody>
             <tr v-if="!tareas">De momento no hay tareas disponibles para este curso</tr>
-            <tr :key="tarea.id_tarea" v-for="tarea in tareas">
+            <tr :key="tarea.titulo" v-for="tarea in tareas">
               <!--repetir con v-for -->
               <td class="col-md-1">
                 <router-link
                   class="btn btn-secondary"
-                  :to="{ name: 'DetalleTarea', params: {id_curso: id_curso, id_tarea: tarea.id_tarea} } "
+                  :to="{ name: 'DetalleTarea', params: {id_curso: id_curso, id_tarea: tarea.titulo} } "
                 >{{tarea.titulo}}</router-link>
               </td>
               <td class="col-md-1">nota</td>
               <td class="col-md-1" v-if="!$route.params.vista_maestro">
                 <router-link
                   class="btn btn-info"
-                  :to="{ name: 'SubirTarea', params: {id_curso: id_curso, id_tarea: tarea.id_tarea}}"
+                  :to="{ name: 'SubirTarea', params: {id_curso: id_curso, id_tarea: tarea.titulo}}"
                 >subir tarea</router-link>
               </td>
             </tr>

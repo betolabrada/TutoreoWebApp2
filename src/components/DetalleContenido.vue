@@ -31,7 +31,7 @@ export default {
         if (doc.exists) {
           const contenidos = doc.data().contenidos;
           contenidos.forEach(contenido => {
-            if (contenido.id_contenido == this.$route.params.id_contenido) {
+            if (contenido.titulo == this.$route.params.id_contenido) {
               this.name = contenido.titulo;
               this.descripcion = contenido.descripcion;
             }

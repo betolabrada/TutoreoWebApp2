@@ -40,8 +40,8 @@ export default {
         if (doc.exists) {
           const tarea = doc.data().tareas;
           tarea.forEach(tareas => {
-            if (tareas.id_tarea == this.$route.params.id_tarea) {
-              this.name = tareas.nombre;
+            if (tareas.titulo == this.$route.params.id_tarea) {
+              this.name = tareas.titulo;
               this.descripcion = tareas.descripcion;
             }
           });
