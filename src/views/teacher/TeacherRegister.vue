@@ -59,7 +59,9 @@ export default {
       curso: {
         nombre: "",
         descripcion: "",
-        requisitos: ""
+        requisitos: "",
+        contenido: [],
+        tareas: [],
       },
       dataSuccess: ""
     };

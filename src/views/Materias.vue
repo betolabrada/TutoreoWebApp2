@@ -31,10 +31,8 @@ export default {
   computed: {
     available: function() {
       return this.materias.filter(materia => {
-        return !this.materias_inscritas.includes(materia.id_curso)
+        return !this.materias_inscritas.includes(materia.id_curso);
       });
-      
-        
     }
   },
   mounted() {
