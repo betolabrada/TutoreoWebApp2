@@ -6,17 +6,18 @@
       <button @click="subirContenido" class="btn btn-primary ml-3 mt-2">Nuevo Contenido</button>
     </div>
     <h1>{{name}}</h1>
+    <h2>Profesor: {{maestro}}</h2>
     <div class="col-xs-6">
       <h2 class="sub-header">Contenido</h2>
       <div class="table-responsive">
         <table class="table table-striped">
           <tbody>
-            <tr>
+            <tr :key="contenido.id_contenido" v-for="contenido in contenidos" >
               <!--repetir con v-for -->
               <td class="col-md-1">
                 <router-link
                   class="btn btn-secondary"
-                  :to="{ name: 'DetalleContenido', params: {id_curso: id_curso, id_contenido: contenidos[0].id_contenido} } "
+                  :to="{ name: 'DetalleContenido', params: {id_curso: id_curso, id_contenido: contenido.id_contenido} } "
                 >nombre del contenido</router-link>
               </td>
             </tr>
@@ -35,12 +36,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr :key="tarea.id_tarea" v-for="tarea in tareas">
               <!--repetir con v-for -->
-              <td class="col-md-1">
+              <td  class="col-md-1">
                 <router-link
                   class="btn btn-secondary"
-                  :to="{ name: 'DetalleTarea', params: {id_curso: id_curso, id_tarea: tareas[0].id_tarea} } "
+                  :to="{ name: 'DetalleTarea', params: {id_curso: id_curso, id_tarea: tarea.id_tarea} } "
                 >nombre de la tarea</router-link>
               </td>
               <td class="col-md-1">nota</td>
@@ -66,7 +67,8 @@ export default {
       id_curso: "",
       name: "",
       tareas: [],
-      contenidos: []
+      contenidos: [],
+      maestro: "",
     };
   },
   beforeRouteEnter(to, from, next) {
@@ -78,27 +80,37 @@ export default {
           next(vm => {
             vm.id_curso = doc.data().id_curso;
             vm.name = doc.data().nombre;
+            vm.contenidos = doc.data().contenidos;
           });
         });
       });
   },
   mounted() {
-    db.collection("tareas")
+    // db.collection("tareas")
+    //   .get()
+    //   .then(querySnapshot => {
+    //     querySnapshot.forEach(doc => {
+    //       this.tareas.push(doc.data());
+    //     });
+    //   });
+    // db.collection("contenidos")
+    //   .get()
+    //   .then(querySnapshot => {
+    //     querySnapshot.forEach(doc => {
+    //       const contenidoData = {
+    //         id_contenido: doc.id,
+    //         nombre: doc.data().nombre
+    //       };
+    //       this.contenidos.push(contenidoData);
+    //     });
+    //   });
+
+    db.collection("maestros")
+      .where("curso.id_curso", "==", this.$route.params.id_curso)
       .get()
       .then(querySnapshot => {
         querySnapshot.forEach(doc => {
-          this.tareas.push(doc.data());
-        });
-      });
-    db.collection("contenidos")
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          const contenidoData = {
-            id_contenido: doc.id,
-            nombre: doc.data().nombre
-          };
-          this.contenidos.push(contenidoData);
+          this.maestro = doc.data().nombre;
         });
       });
   },
