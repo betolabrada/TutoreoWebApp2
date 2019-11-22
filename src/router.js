@@ -14,6 +14,7 @@ import DashboardMateria from "./components/DashboardMateria.vue";
 import DetalleTarea from "./components/DetalleTarea.vue";
 import DetalleContenido from "./components/DetalleContenido.vue";
 import DetalleProfesor from "./components/DetalleProfesor.vue";
+import SubirTarea from "./components/SubirTarea.vue";
 
 Vue.use(VueRouter);
 
@@ -83,6 +84,11 @@ export default new VueRouter({
       path: "/dashboard/materia/:id_curso/contenido/:id_contenido",
       name: "DetalleContenido",
       component: DetalleContenido
+    },
+    {
+      path: "/dashboard/materia/:id_curso/tarea/:id_tarea",
+      name: "SubirTarea",
+      component: SubirTarea
     },
     {
       path:"/pruebitas",
